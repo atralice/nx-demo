@@ -1,0 +1,87 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@typescript-eslint",
+    "import", "@nrwl/nx"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "*/*/tsconfig.json"
+      }
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.base.json",
+    "tsconfigRootDir": "./"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx", "*.stories.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript", "plugin:import/typescript", "plugin:import/recommended",  "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"],
+      "rules": {
+        "indent": ["error", 2],
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ],
+        "import/no-extraneous-dependencies": 0,
+        "import/prefer-default-export": 0,
+        "import/default": 0,
+        "import/first": "error",
+        "import/no-duplicates": "error",
+        "import/newline-after-import": "error",
+        "import/no-dynamic-require": 0,
+        "import/no-unresolved": "error",
+        "import/no-named-as-default-member": 0,
+        "@typescript-eslint/require-await": "error",
+        "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/space-before-function-paren": 0,
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/member-delimiter-style": ["error",
+          {
+            "singleline":
+              {
+                "delimiter": "semi", 
+                "requireLast": true
+              }
+          }
+        ],
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+        "@typescript-eslint/promise-function-async": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/restrict-plus-operands": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/naming-convention": 0,
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-misused-promises": 0
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ]
+}
